@@ -5,18 +5,20 @@
 #include<stdlib.h>
 int result[2];
 int* twoSum(int* nums, int numsSize, int target) {
-	int sumResult;
-	int *numsCol;
-	int *numsRow;
+	int** hash;
+	hash = (int**)malloc(sizeof(int*)*target);
+	int* numsCol;
+	int* numsRow;
 	
 	for(numsRow = nums; (numsRow - nums) < numsSize; numsRow++) {
-		for(numsCol = (numsRow + 1);(numsCol - nums) < numsSize; numsCol++) {
-			if (*numsRow + *numsCol == target) {
-				result[0] = (numsRow-nums);
-				result[1] = (numsCol-nums);
-				return result;
-			}
+		
+		if (hash[*numsRow] != '\0') {
+			result[0] = hash[*numsRow] - nums;
+			result[1] = numsRow - nums;
+			return result;
 		}
+		hash[target - *numsRow] = numsRow; 
+
 	}
 	return result;
 }
